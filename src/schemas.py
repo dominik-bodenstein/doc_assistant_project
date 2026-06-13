@@ -16,9 +16,6 @@ class DocumentChunk(BaseModel):
     )
 
 
-# TODO: Implement the AnswerResponse schema for structured Q&A responses.
-# This schema should include fields for the question, answer, sources, confidence, and timestamp.
-# Refer to README.md Task 1.1 for detailed field requirements.
 class AnswerResponse(BaseModel):
     question: str = Field(description="The original user question")
     answer: str = Field(description="The generated answer")
@@ -65,9 +62,6 @@ class UpdateMemoryResponse(BaseModel):
     )
 
 
-# TODO: Implement the UserIntent schema for intent classification.
-# This schema should include fields for intent_type, confidence, and reasoning.
-# Refer to README.md Task 1.2 for detailed field requirements.
 class UserIntent(BaseModel):
     passintent_type: Literal["qa", "summarization", "calculation", "unknown"] = Field(
         description="The classified intent"
