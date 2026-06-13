@@ -1,8 +1,0 @@
-
-# Requirements for MCP Demo
-# Core LangGraph and LangChain packages
-langgraph>=0.2.0
-langchain>=0.1.0
-langchain-openai>=0.0.10
-# MCP adapters and servers
-langchain-mcp-adapters>=0.1.0

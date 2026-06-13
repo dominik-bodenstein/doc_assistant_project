@@ -1,6 +1,0 @@
-
-# Requirements for Memory Demo
-# LangGraph and LangChain packages for state and memory demos
-langgraph>=0.2.0
-langchain>=0.1.0
-langchain-openai>=0.0.10

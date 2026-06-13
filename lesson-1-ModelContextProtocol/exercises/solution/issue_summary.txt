@@ -1,4 +1,0 @@
-Issue #6167: fix(pregel): cleanup orphaned waiter task in AsyncPregelLoop
-Summary: This issue addresses a problem in `AsyncPregelLoop` where an orphaned `stream.wait()` task could result in warnings like "Task was destroyed but it is pending!". The solution involves maintaining a single waiter task, ensuring proper cleanup on exit, and preventing these warnings. The fix does not change the behavior of async streaming but improves lifecycle management.
-URL: https://github.com/langchain-ai/langgraph/pull/6167
-
