@@ -37,6 +37,8 @@ from prompts import (
     MEMORY_SUMMARY_PROMPT,
 )
 
+
+
 from pprint import pprint 
 
 
@@ -88,6 +90,8 @@ def invoke_react_agent(
     tools_used = [
         t.name for t in result.get("messages", []) if isinstance(t, ToolMessage)
     ]
+
+    tools_used = [eachtool for eachtool in tools_used if eachtool in [t.name for t in tools]]
 
     return result, tools_used
 
