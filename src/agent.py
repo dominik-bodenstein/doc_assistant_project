@@ -194,12 +194,12 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
     messages = prompt_template.invoke(
         {
             "input": state.get("user_input"),
-            "chat_history": state.get("messages", tools),
+            "chat_history": state.get("messages", []),
         }
     ).to_messages()
 
     response, tools_used = invoke_react_agent(
-        SummarizationResponse, messages, llm, []
+        SummarizationResponse, messages, llm, tools
     )
     structurized_response = response.get("structured_response")
     if not isinstance(structurized_response, SummarizationResponse):
@@ -249,7 +249,7 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
 
     return {
         "messages": response.get("messages", []),
-        "actions_taken": ["summarization_agent"],
+        "actions_taken": ["calculation_agent"],
         "current_response": response,
         "tools_used": used_tools,
         "next_step": "update_memory",
