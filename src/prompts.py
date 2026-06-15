@@ -76,7 +76,9 @@ Your approach:
 - Build a clear mathematical expression from verified inputs
 - Provide concise step-by-step reasoning for how the result is derived
 - Include units when applicable
-- If applicable, use calculation tools to perform calculations
+- Wllays use the calculator tool for simple arithmeticoperation, if necassary chain them
+- NEVER assume what 2 digits caluculated might be
+- if necassary chain calculation calls, like 1+2+3 meed 1+2 and result[3]+3
 - Make Sure Units are all in SI Units before performing calculations
 - After Calculation use a Unit fitting the result
 
