@@ -88,6 +88,8 @@ def invoke_react_agent(
     tools_used = [
         t.name for t in result.get("messages", []) if isinstance(t, ToolMessage)
     ]
+    print(tools_used)
+    pprint(result)
 
     return result, tools_used
 
@@ -186,15 +188,17 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
     if not isinstance(llm, ChatOpenAI):
         raise TypeError("llm must be a ChatOpenAI instance")
 
+    tools = configurable.get("tools")
+
     prompt_template = get_chat_prompt_template("summarization")
     messages = prompt_template.invoke(
         {
             "input": state.get("user_input"),
-            "chat_history": state.get("messages", []),
+            "chat_history": state.get("messages", tools),
         }
     ).to_messages()
 
-    response, tools = invoke_react_agent(
+    response, tools_used = invoke_react_agent(
         SummarizationResponse, messages, llm, []
     )
     structurized_response = response.get("structured_response")
@@ -205,7 +209,7 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
         "messages": response.get("messages",[]),
         "actions_taken": ["summarization_agent"],
         "current_response": response,
-        "tools_used": [],  # Summarization agent does not use tools in this implementation
+        "tools_used": tools_used,  
         "next_step": "update_memory",
     }
 
@@ -225,7 +229,7 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
 
     tools = configurable.get("tools")
 
-    prompt_template = get_chat_prompt_template("summarization")
+    prompt_template = get_chat_prompt_template("calculation")
     messages = prompt_template.invoke(
         {
             "input": state.get("user_input"),
@@ -233,7 +237,7 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
         }
     ).to_messages()
 
-    response, tools = invoke_react_agent(
+    response, used_tools = invoke_react_agent(
         CalculationResponse, messages, llm, tools
     )
 
@@ -247,7 +251,7 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
         "messages": response.get("messages", []),
         "actions_taken": ["summarization_agent"],
         "current_response": response,
-        "tools_used": tools,
+        "tools_used": used_tools,
         "next_step": "update_memory",
     }
 
