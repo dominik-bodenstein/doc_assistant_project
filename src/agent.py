@@ -39,8 +39,6 @@ from prompts import (
 
 
 
-from pprint import pprint 
-
 
 # TODO: The AgentState class is already implemented for you.  Study the
 # structure to understand how state flows through the LangGraph
@@ -244,7 +242,6 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
     )
 
     structurized_response = response.get("structured_response")
-    pprint(structurized_response)
 
     if not isinstance(structurized_response, CalculationResponse):
         raise TypeError("LLM response is not of type Calculation")
