@@ -63,7 +63,7 @@ class UpdateMemoryResponse(BaseModel):
 
 
 class UserIntent(BaseModel):
-    passintent_type: Literal["qa", "summarization", "calculation", "unknown"] = Field(
+    intent_type: Literal["qa", "summarization", "calculation", "unknown"] = Field(
         description="The classified intent"
     )
     confidence: float = Field(

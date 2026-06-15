@@ -37,6 +37,8 @@ from prompts import (
     MEMORY_SUMMARY_PROMPT,
 )
 
+from pprint import pprint 
+
 
 # TODO: The AgentState class is already implemented for you.  Study the
 # structure to understand how state flows through the LangGraph
@@ -120,8 +122,9 @@ def classify_intent(state: AgentState, config: RunnableConfig) -> AgentState:
         "calculation": "calculation_agent",
     }
 
-    intent = response.passintent_type
+    intent = response.intent_type
     next_step = conditional_logic.get(intent, "qa_agent")
+
 
     return {
         "actions_taken": ["classify_intent"],
@@ -183,7 +186,6 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
     if not isinstance(llm, ChatOpenAI):
         raise TypeError("llm must be a ChatOpenAI instance")
 
-    llm_with_structured_output = llm.with_structured_output(SummarizationResponse)
     prompt_template = get_chat_prompt_template("summarization")
     messages = prompt_template.invoke(
         {
@@ -192,16 +194,17 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
         }
     ).to_messages()
 
-    result, tools = invoke_react_agent(
-        SummarizationResponse, messages, llm_with_structured_output, []
+    response, tools = invoke_react_agent(
+        SummarizationResponse, messages, llm, []
     )
-    if not isinstance(result, SummarizationResponse):
+    structurized_response = response.get("structured_response")
+    if not isinstance(structurized_response, SummarizationResponse):
         raise TypeError("LLM response is not of type SummarizationResponse")
 
     return {
-        "messages": result.get("messages", []),
+        "messages": response.get("messages",[]),
         "actions_taken": ["summarization_agent"],
-        "current_response": result,
+        "current_response": response,
         "tools_used": [],  # Summarization agent does not use tools in this implementation
         "next_step": "update_memory",
     }
@@ -220,7 +223,8 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
     if not isinstance(llm, ChatOpenAI):
         raise TypeError("llm must be a ChatOpenAI instance")
 
-    llm_with_structured_output = llm.with_structured_output(SummarizationResponse)
+    tools = configurable.get("tools")
+
     prompt_template = get_chat_prompt_template("summarization")
     messages = prompt_template.invoke(
         {
@@ -229,17 +233,21 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
         }
     ).to_messages()
 
-    result, _ = invoke_react_agent(
-        SummarizationResponse, messages, llm_with_structured_output, []
+    response, tools = invoke_react_agent(
+        CalculationResponse, messages, llm, tools
     )
-    if not isinstance(result, SummarizationResponse):
-        raise TypeError("LLM response is not of type SummarizationResponse")
+
+    structurized_response = response.get("structured_response")
+    pprint(structurized_response)
+
+    if not isinstance(structurized_response, CalculationResponse):
+        raise TypeError("LLM response is not of type Calculation")
 
     return {
-        "messages": result.get("messages", []),
+        "messages": response.get("messages", []),
         "actions_taken": ["summarization_agent"],
-        "current_response": result,
-        "tools_used": [],  # Summarization agent does not use tools in this implementation
+        "current_response": response,
+        "tools_used": tools,
         "next_step": "update_memory",
     }
 
