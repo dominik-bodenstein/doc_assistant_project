@@ -88,8 +88,6 @@ def invoke_react_agent(
     tools_used = [
         t.name for t in result.get("messages", []) if isinstance(t, ToolMessage)
     ]
-    print(tools_used)
-    pprint(result)
 
     return result, tools_used
 
