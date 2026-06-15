@@ -1,5 +1,12 @@
-from langchain.prompts import PromptTemplate, ChatPromptTemplate, MessagesPlaceholder
-from langchain.prompts.chat import SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain_core.prompts import (
+    PromptTemplate,
+    ChatPromptTemplate,
+    MessagesPlaceholder,
+)
+from langchain_core.prompts.chat import (
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
 
 
 def get_intent_classification_prompt() -> PromptTemplate:
@@ -22,7 +29,7 @@ Recent Conversation History:
 {conversation_history}
 
 Analyze the user's request and classify their intent with a confidence score and brief reasoning.
-"""
+""",
     )
 
 
@@ -61,11 +68,29 @@ Guidelines:
 """
 
 # Calculation System Prompt
-# TODO: Implement the CALCULATION_SYSTEM_PROMPT. Refer to README.md Task 3.2 for details
-CALCULATION_SYSTEM_PROMPT = """"""
+CALCULATION_SYSTEM_PROMPT = """
+You are a skilled calculator and analyst for financial and healthcare documents.
+
+Your approach:
+- Perform accurate calculations based on document data
+- Build a clear mathematical expression from verified inputs
+- Provide concise step-by-step reasoning for how the result is derived
+- Include units when applicable
+- If applicable, use calculation tools to perform calculations
+- Make Sure Units are all in SI Units before performing calculations
+- After Calculation use a Unit fitting the result
+
+Guidelines:
+1. Always verify the data before performing calculations
+2. Ensure the final result is numerically correct and consistent with the expression
+3. Keep explanations concise, readable, and audit-friendly
+4. Cite document IDs when referencing source values
+5. Use null-equivalent behavior for units when not applicable
+6. Maintain professional tone
+
+"""
 
 
-# TODO: Finish the function to return the correct prompt based on intent type
 # Refer to README.md Task 3.1 for details
 def get_chat_prompt_template(intent_type: str) -> ChatPromptTemplate:
     """
@@ -73,18 +98,20 @@ def get_chat_prompt_template(intent_type: str) -> ChatPromptTemplate:
     """
     if intent_type == "qa":
         system_prompt = QA_SYSTEM_PROMPT
-    elif intent_type ==  # TODO:  Check the intent type value
-        system_prompt =  # TODO: Set system prompt to the correct value based on intent type
-    elif intent_type ==  # TODO: Check the intent type value
-    # TODO: Set system prompt to the correct value based on intent type
+    elif intent_type == "summarization":
+        system_prompt = SUMMARIZATION_SYSTEM_PROMPT
+    elif intent_type == "calculation":
+        system_prompt = CALCULATION_SYSTEM_PROMPT
     else:
         system_prompt = QA_SYSTEM_PROMPT  # Default fallback
 
-    return ChatPromptTemplate.from_messages([
-        SystemMessagePromptTemplate.from_template(system_prompt),
-        MessagesPlaceholder("chat_history"),
-        HumanMessagePromptTemplate.from_template("{input}")
-    ])
+    return ChatPromptTemplate.from_messages(
+        [
+            SystemMessagePromptTemplate.from_template(system_prompt),
+            MessagesPlaceholder("chat_history"),
+            HumanMessagePromptTemplate.from_template("{input}"),
+        ]
+    )
 
 
 # Memory Summary Prompt

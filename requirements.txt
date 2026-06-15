@@ -1,5 +1,3 @@
-# DocDacity Document Assistant
-
 langchain>=0.2.0
 langgraph>=0.6.7
 langchain-openai>=0.1.0
