@@ -96,6 +96,17 @@ def create_calculator_tool(logger: ToolLogger):
                 raise ValueError(f"Unsupported operation: {operation}")
 
             result = mapping[operation](a, b)
+
+            logger.log_tool_use(
+                "calculator",
+                {
+                    "a": a,
+                    "b": b,
+                    "operation": operation,
+                },
+                {"result": result},
+            )
+
             return result
         except Exception as e:
             logger.log_tool_use(

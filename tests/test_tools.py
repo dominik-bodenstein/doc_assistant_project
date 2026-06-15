@@ -42,6 +42,19 @@ def test_calculator_divide_by_zero_returns_nan_and_logs_error(calculator_with_lo
     assert "Cannot divide by zero" in log_entry["output"]
 
 
+def test_calculator_logs_successful_operation(calculator_with_logger):
+    calculator, logger = calculator_with_logger
+    result = calculator.invoke({"a": 2.0, "b": 3.0, "operation": "add"})
+
+    assert result == 5.0
+    assert len(logger.get_logs()) == 1
+
+    log_entry = logger.get_logs()[0]
+    assert log_entry["tool_name"] == "calculator"
+    assert log_entry["input"]["operation"] == "add"
+    assert "5.0" in log_entry["output"]
+
+
 def test_calculator_unsupported_operation_fails_validation(calculator_with_logger):
     calculator, logger = calculator_with_logger
     with pytest.raises(Exception) as context:
