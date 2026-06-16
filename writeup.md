@@ -108,3 +108,62 @@ TOOLS USED: document_search, document_reader, document_reader, document_reader
 CONVERSATION SUMMARY: The conversation involved checking the payment due dates for three invoices. Invoice #12345 for Acme Corporation is due on 2024-02-14, Invoice #12346 for TechStart Inc. is due on 2024-04-05, and Invoice #12347 for Global Corp is due on 2024-04-30.
 *********************************************************************************
 ```
+
+## Test Results
+
+### How to Run Tests
+
+**Prerequisites:** `uv` installed and dependencies synced.
+
+```bash
+# From doc_assistant_project/
+uv run pytest               # run all tests
+uv run pytest --verbose     # with per-test names
+uv run pytest tests/test_tools.py        # calculator tests only
+uv run pytest tests/test_agent.py        # agent unit tests only
+uv run pytest tests/test_integration.py  # integration & e2e tests only
+```
+
+> Tests are discovered from `tests/` only (configured in `pyproject.toml`).  
+> No `.env` or real API key is needed — the LLM is fully mocked.
+
+```text
+tests/test_agent.py::test_classify_intent_routes_to_qa PASSED                                                                                                                       [  2%]
+tests/test_agent.py::test_classify_intent_routes_to_summarization PASSED                                                                                                            [  5%]
+tests/test_agent.py::test_classify_intent_routes_to_calculation PASSED                                                                                                              [  8%]
+tests/test_agent.py::test_classify_intent_routes_unknown_to_qa PASSED                                                                                                               [ 11%]
+tests/test_agent.py::test_qa_agent_populates_response PASSED                                                                                                                        [ 13%]
+tests/test_agent.py::test_summarization_agent_populates_response PASSED                                                                                                             [ 16%]
+tests/test_agent.py::test_calculation_agent_populates_response PASSED                                                                                                               [ 19%]
+tests/test_agent.py::test_update_memory_updates_summary PASSED                                                                                                                      [ 22%]
+tests/test_agent.py::test_should_continue_routes_correctly PASSED                                                                                                                   [ 25%]
+tests/test_agent.py::test_calculation_prompt_no_typos PASSED                                                                                                                        [ 27%]
+tests/test_agent.py::test_create_workflow_compiles PASSED                                                                                                                           [ 30%]
+tests/test_integration.py::TestIntegrationQARoute::test_process_message_qa_returns_success PASSED                                                                                   [ 33%]
+tests/test_integration.py::TestIntegrationQARoute::test_process_message_qa_records_tools_used PASSED                                                                                [ 36%]
+tests/test_integration.py::TestIntegrationSummarizationRoute::test_process_message_summarization_returns_success PASSED                                                             [ 38%]
+tests/test_integration.py::TestIntegrationCalculationRoute::test_process_message_calculation_returns_success PASSED                                                                 [ 41%]
+tests/test_integration.py::TestIntegrationUnknownRoute::test_process_message_unknown_falls_back_to_qa PASSED                                                                        [ 44%]
+tests/test_integration.py::TestIntegrationSessionManagement::test_start_session_returns_session_id PASSED                                                                           [ 47%]
+tests/test_integration.py::TestIntegrationSessionManagement::test_explicit_session_id_is_honoured PASSED                                                                            [ 50%]
+tests/test_integration.py::TestIntegrationSessionManagement::test_session_file_written_after_message PASSED                                                                         [ 52%]
+tests/test_integration.py::TestIntegrationErrorHandling::test_process_message_without_session_raises PASSED                                                                         [ 55%]
+tests/test_integration.py::TestIntegrationErrorHandling::test_workflow_exception_returns_success_false PASSED                                                                       [ 58%]
+tests/test_integration.py::TestE2EAssistant::test_e2e_qa_full_response_shape PASSED                                                                                                 [ 61%]
+tests/test_integration.py::TestE2EAssistant::test_e2e_calculation_uses_calculator_tool PASSED                                                                                       [ 63%]
+tests/test_integration.py::TestE2EAssistant::test_e2e_multi_turn_session_accumulates_history PASSED                                                                                 [ 66%]
+tests/test_integration.py::TestE2EAssistant::test_e2e_session_resume_loads_persisted_data PASSED                                                                                    [ 69%]
+tests/test_integration.py::TestE2EAssistant::test_e2e_sources_propagated_from_active_documents PASSED                                                                               [ 72%]
+tests/test_tools.py::test_calculator_expression_addition PASSED                                                                                                                     [ 75%]
+tests/test_tools.py::test_calculator_expression_subtraction PASSED                                                                                                                  [ 77%]
+tests/test_tools.py::test_calculator_expression_multiplication PASSED                                                                                                               [ 80%]
+tests/test_tools.py::test_calculator_expression_division PASSED                                                                                                                     [ 83%]
+tests/test_tools.py::test_calculator_expression_compound PASSED                                                                                                                     [ 86%]
+tests/test_tools.py::test_calculator_divide_by_zero_returns_error_string PASSED                                                                                                     [ 88%]
+tests/test_tools.py::test_calculator_invalid_expression_returns_error_string PASSED                                                                                                 [ 91%]
+tests/test_tools.py::test_calculator_injection_attempt_returns_error_string PASSED                                                                                                  [ 94%]
+tests/test_tools.py::test_calculator_logs_success PASSED                                                                                                                            [ 97%]
+tests/test_tools.py::test_calculator_logs_error PASSED                                                                                                                              [100%]
+
+=================================================================================== 36 passed in 3.81s ===================================================================================
+```

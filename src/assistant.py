@@ -83,7 +83,7 @@ class DocumentAssistant:
             filepath = os.path.join(
                 self.session_storage_path, f"{self.current_session.session_id}.json"
             )
-            session_dict = self.current_session.dict()
+            session_dict = self.current_session.model_dump()
 
             def serialize_datetime(obj):
                 if isinstance(obj, datetime):
