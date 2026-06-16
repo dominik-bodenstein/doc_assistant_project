@@ -3,6 +3,7 @@ name = "doc-assistant-project"
 version = "0.1.0"
 requires-python = ">=3.13"
 dependencies = [
+    "grandalf>=0.8",
     "langchain>=0.2.0",
     "langchain-core>=0.2.0",
     "langchain-openai>=0.1.0",

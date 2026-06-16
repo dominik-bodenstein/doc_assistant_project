@@ -38,8 +38,6 @@ from prompts import (
 )
 
 
-
-
 # TODO: The AgentState class is already implemented for you.  Study the
 # structure to understand how state flows through the LangGraph
 # workflow.  See README.md Task 2.1 for detailed explanations of
@@ -89,7 +87,9 @@ def invoke_react_agent(
         t.name for t in result.get("messages", []) if isinstance(t, ToolMessage)
     ]
 
-    tools_used = [eachtool for eachtool in tools_used if eachtool in [t.name for t in tools]]
+    tools_used = [
+        eachtool for eachtool in tools_used if eachtool in [t.name for t in tools]
+    ]
 
     return result, tools_used
 
@@ -126,7 +126,6 @@ def classify_intent(state: AgentState, config: RunnableConfig) -> AgentState:
 
     intent = response.intent_type
     next_step = conditional_logic.get(intent, "qa_agent")
-
 
     return {
         "actions_taken": ["classify_intent"],
@@ -206,10 +205,10 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
         raise TypeError("LLM response is not of type SummarizationResponse")
 
     return {
-        "messages": response.get("messages",[]),
+        "messages": response.get("messages", []),
         "actions_taken": ["summarization_agent"],
         "current_response": response,
-        "tools_used": tools_used,  
+        "tools_used": tools_used,
         "next_step": "update_memory",
     }
 
@@ -237,9 +236,7 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
         }
     ).to_messages()
 
-    response, used_tools = invoke_react_agent(
-        CalculationResponse, messages, llm, tools
-    )
+    response, used_tools = invoke_react_agent(CalculationResponse, messages, llm, tools)
 
     structurized_response = response.get("structured_response")
 
@@ -267,6 +264,8 @@ def update_memory(state: AgentState, config: RunnableConfig) -> AgentState:
     llm = configurable.get("llm")
     if not isinstance(llm, ChatOpenAI):
         raise TypeError("llm must be a ChatOpenAI instance")
+
+    session_state: SessionState = state.get("session_id")  # type: ignore
 
     prompt_with_history = ChatPromptTemplate.from_messages(
         [
@@ -332,4 +331,5 @@ def create_workflow(llm, tools):
     workflow.add_edge("update_memory", END)
 
     # TODO Modify the return values below by adding a checkpointer with InMemorySaver
+    print(workflow.compile().get_graph().draw_ascii())
     return workflow.compile(checkpointer=InMemorySaver())

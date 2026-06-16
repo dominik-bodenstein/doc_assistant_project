@@ -28,9 +28,7 @@ pyvenv.cfg
 
 # Project specific
 .env
-sessions/
-logs/
-*.log
+
 
 # OS
 .DS_Store
