@@ -7,11 +7,11 @@ import uuid
 from langchain_core.messages import BaseMessage
 from langchain_openai import ChatOpenAI
 
-from schemas import SessionState
+from schemas import SessionState, UserIntent
 from retrieval import SimulatedRetriever
 from tools import get_all_tools, ToolLogger
-from agent import create_workflow, AgentState
-from prompts import MEMORY_SUMMARY_PROMPT
+from agent import create_workflow, AgentState, RunnableConfig
+from typing import cast
 
 
 class DocumentAssistant:
@@ -29,7 +29,7 @@ class DocumentAssistant:
     ):
         # Initialize LLM
         self.llm = ChatOpenAI(
-            api_key=openai_api_key,
+            api_key=openai_api_key,  # type: ignore
             model=model_name,
             temperature=temperature,
             base_url="https://openai.vocareum.com/v1",
@@ -55,7 +55,6 @@ class DocumentAssistant:
         if session_id and self._session_exists(session_id):
             # Load existing session
             self.current_session = self._load_session(session_id)
-            print(f"Resumed session {session_id}")
         else:
             # Create new session
             session_id = session_id or str(uuid.uuid4())
@@ -65,7 +64,6 @@ class DocumentAssistant:
                 conversation_history=[],
                 document_context=[],
             )
-            print(f"Started new session {session_id}")
         return session_id
 
     def _session_exists(self, session_id: str) -> bool:
@@ -134,7 +132,6 @@ class DocumentAssistant:
             "user_input": user_input,
             "intent": None,
             "next_step": "classify_intent",
-            "conversation_history": self.current_session.conversation_history,
             "conversation_summary": self._get_conversation_summary(config),
             "active_documents": self.current_session.document_context,
             "current_response": None,
@@ -146,7 +143,9 @@ class DocumentAssistant:
         }
         try:
             # Invoke the workflow with a thread_id equal to the session_id
-            final_state = self.workflow.invoke(initial_state, config=config)
+            final_state = self.workflow.invoke(
+                initial_state, config=cast(RunnableConfig, config)
+            )
             # Update session with new state
             if final_state.get("messages"):
                 self.current_session.conversation_history.append(final_state)
@@ -161,15 +160,17 @@ class DocumentAssistant:
                 self._save_session()
             return {
                 "success": True,
-                "response": final_state.get("messages")[-1].content
+                "response": cast(List[BaseMessage], final_state.get("messages"))[
+                    -1
+                ].content
                 if final_state.get("messages")
                 else None,
-                "intent": final_state.get("intent").dict()
+                "intent": cast(UserIntent, final_state.get("intent"))
                 if final_state.get("intent")
                 else None,
-                "tools_used": final_state.get("tools_used", []),
-                "sources": final_state.get("active_documents", []),
-                "actions_taken": final_state.get("actions_taken", []),
+                "tools_used": cast(List[str], final_state.get("tools_used", [])),
+                "sources": cast(List[str], final_state.get("active_documents", [])),
+                "actions_taken": cast(List[str], final_state.get("actions_taken", [])),
                 "summary": final_state.get("conversation_summary", []),
             }
         except Exception as e:
