@@ -1,4 +1,4 @@
-from typing import TypedDict, Annotated, List, Dict, Any, Optional, Literal, cast
+from typing import TypedDict, Annotated, List, Dict, Any, Optional, cast
 
 from langchain_core.prompts import (
     ChatPromptTemplate,
@@ -12,24 +12,17 @@ from langchain.agents.middleware.types import InputAgentState
 from pydantic import BaseModel
 from langgraph.graph import StateGraph, END
 from langgraph.graph.message import add_messages
-from langgraph.prebuilt import tools_condition, ToolNode
 from langchain_core.messages import (
     BaseMessage,
-    HumanMessage,
-    AIMessage,
-    SystemMessage,
     ToolMessage,
 )
 from langgraph.checkpoint.memory import InMemorySaver
-import re
 import operator
 from schemas import (
     UserIntent,
-    SessionState,
     AnswerResponse,
     SummarizationResponse,
     CalculationResponse,
-    UpdateMemoryResponse,
 )
 from prompts import (
     get_intent_classification_prompt,
@@ -208,7 +201,7 @@ def summarization_agent(state: AgentState, config: RunnableConfig) -> AgentState
         "messages": response.get("messages", []),
         "actions_taken": ["summarization_agent"],
         "current_response": response,
-        "tools_used": tools_used,
+        "tools_used": cast(List[str], tools_used),
         "next_step": "update_memory",
     }
 
@@ -247,7 +240,7 @@ def calculation_agent(state: AgentState, config: RunnableConfig) -> AgentState:
         "messages": response.get("messages", []),
         "actions_taken": ["calculation_agent"],
         "current_response": response,
-        "tools_used": used_tools,
+        "tools_used": cast(List[str], used_tools),
         "next_step": "update_memory",
     }
 
@@ -264,8 +257,6 @@ def update_memory(state: AgentState, config: RunnableConfig) -> AgentState:
     llm = configurable.get("llm")
     if not isinstance(llm, ChatOpenAI):
         raise TypeError("llm must be a ChatOpenAI instance")
-
-    session_state: SessionState = state.get("session_id")  # type: ignore
 
     prompt_with_history = ChatPromptTemplate.from_messages(
         [
@@ -330,6 +321,4 @@ def create_workflow(llm, tools):
 
     workflow.add_edge("update_memory", END)
 
-    # TODO Modify the return values below by adding a checkpointer with InMemorySaver
-    print(workflow.compile().get_graph().draw_ascii())
     return workflow.compile(checkpointer=InMemorySaver())
