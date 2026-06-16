@@ -1,0 +1,589 @@
+{
+  "session_id": "d2402bbe-714f-4774-8696-d5bb331c8247",
+  "user_id": "demo_user",
+  "conversation_history": [
+    {
+      "user_input": "when i payment due?",
+      "messages": [
+        {
+          "content": "You are a helpful document assistant specializing in answering questions about financial and healthcare documents.\n\nYour capabilities:\n- Answer specific questions about document content\n- Cite sources accurately\n- Provide clear, concise answers\n- Use available tools to search and read documents\n\nGuidelines:\n1. Always search for relevant documents before answering\n2. Cite specific document IDs when referencing information\n3. If information is not found, say so clearly\n4. Be precise with numbers and dates\n5. Maintain professional tone\n\n",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "system",
+          "name": null,
+          "id": "b0c88890-538c-4031-8260-e568da106e60"
+        },
+        {
+          "content": "when i payment due?",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "human",
+          "name": null,
+          "id": "43ef6795-ccc1-4099-8080-718b77257851"
+        },
+        {
+          "content": "",
+          "additional_kwargs": {
+            "refusal": null
+          },
+          "response_metadata": {
+            "token_usage": {
+              "completion_tokens": 21,
+              "prompt_tokens": 864,
+              "total_tokens": 885,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            },
+            "model_provider": "openai",
+            "model_name": "gpt-4o-2024-08-06",
+            "system_fingerprint": "fp_b7447f5746",
+            "id": "chatcmpl-Dr7WqUppUEaNSJ4aP57YKm6vDqhlO",
+            "service_tier": "default",
+            "finish_reason": "tool_calls",
+            "logprobs": null
+          },
+          "type": "ai",
+          "name": null,
+          "id": "lc_run--019eccd0-cb48-7dd0-a78d-88adebc5aa6d-0",
+          "tool_calls": [
+            {
+              "name": "document_search",
+              "args": {
+                "query": "payment due date",
+                "search_type": "keyword"
+              },
+              "id": "call_1lP5KEbFkqfz8fA8kNJd76Ka",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "usage_metadata": {
+            "input_tokens": 864,
+            "output_tokens": 21,
+            "total_tokens": 885,
+            "input_token_details": {
+              "audio": 0,
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "audio": 0,
+              "reasoning": 0
+            }
+          }
+        },
+        {
+          "content": "Found 3 document(s):\n\nDocument 1 (ID: INV-002):\nTitle: Invoice #12346\nType: invoice\nAmount: $69,300.00\nRelevance Score: 1.50\nPreview: \n                Invoice #12346\n                Date: 2024-02-20\n                Client: TechStart Inc.\n\n                Products:\n                - Enterprise License (Annual): $50,000\n              ...\n--------------------------------------------------\nDocument 2 (ID: INV-003):\nTitle: Invoice #12347\nType: invoice\nAmount: $214,500.00\nRelevance Score: 1.50\nPreview: \n                Invoice #12347\n                Date: 2024-03-01\n                Client: Global Corp\n\n                Services:\n                - Annual Subscription: $120,000\n                - Premiu...\n--------------------------------------------------\nDocument 3 (ID: INV-001):\nTitle: Invoice #12345\nType: invoice\nRelevance Score: 1.00\nPreview: \n                Invoice #12345\n                Date: 2024-01-15\n                Client: Acme Corporation\n\n                Services Rendered:\n                - Consulting Services: $5,000\n            ...\n--------------------------------------------------\n",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "document_search",
+          "id": "5a664ef5-bd51-4da6-832c-0861622da045",
+          "tool_call_id": "call_1lP5KEbFkqfz8fA8kNJd76Ka",
+          "artifact": null,
+          "status": "success"
+        },
+        {
+          "content": "",
+          "additional_kwargs": {
+            "refusal": null
+          },
+          "response_metadata": {
+            "token_usage": {
+              "completion_tokens": 67,
+              "prompt_tokens": 1145,
+              "total_tokens": 1212,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            },
+            "model_provider": "openai",
+            "model_name": "gpt-4o-2024-08-06",
+            "system_fingerprint": "fp_b7447f5746",
+            "id": "chatcmpl-Dr7WriwsxPLGu1cKeNfA3cSxziEbZ",
+            "service_tier": "default",
+            "finish_reason": "tool_calls",
+            "logprobs": null
+          },
+          "type": "ai",
+          "name": null,
+          "id": "lc_run--019eccd0-d064-7d70-aa81-ddf1032ebded-0",
+          "tool_calls": [
+            {
+              "name": "document_reader",
+              "args": {
+                "doc_id": "INV-002"
+              },
+              "id": "call_JSC1Z8cROMk6dswOnkFtyGEn",
+              "type": "tool_call"
+            },
+            {
+              "name": "document_reader",
+              "args": {
+                "doc_id": "INV-003"
+              },
+              "id": "call_ASs1wDXIpDBkTeV57J5rf7Io",
+              "type": "tool_call"
+            },
+            {
+              "name": "document_reader",
+              "args": {
+                "doc_id": "INV-001"
+              },
+              "id": "call_6iCU1ZGtq3mLItJGasyoFlSB",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "usage_metadata": {
+            "input_tokens": 1145,
+            "output_tokens": 67,
+            "total_tokens": 1212,
+            "input_token_details": {
+              "audio": 0,
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "audio": 0,
+              "reasoning": 0
+            }
+          }
+        },
+        {
+          "content": "Document INV-002:\nAmount: $69,300.00\n\n\n                Invoice #12346\n                Date: 2024-02-20\n                Client: TechStart Inc.\n\n                Products:\n                - Enterprise License (Annual): $50,000\n                - Implementation Services: $15,000\n                - Training Package: $5,000\n\n                Subtotal: $70,000\n                Discount (10%): -$7,000\n                Tax (10%): $6,300\n                Total Due: $69,300\n\n                Payment Terms: Net 45 days\n                ",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "document_reader",
+          "id": "2ae1b401-45d3-42a9-9965-0e8bca5f6641",
+          "tool_call_id": "call_JSC1Z8cROMk6dswOnkFtyGEn",
+          "artifact": null,
+          "status": "success"
+        },
+        {
+          "content": "Document INV-003:\nAmount: $214,500.00\n\n\n                Invoice #12347\n                Date: 2024-03-01\n                Client: Global Corp\n\n                Services:\n                - Annual Subscription: $120,000\n                - Premium Support: $30,000\n                - Custom Development: $45,000\n\n                Subtotal: $195,000\n                Tax (10%): $19,500\n                Total Due: $214,500\n\n                Payment Terms: Net 60 days\n                ",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "document_reader",
+          "id": "4ec2807b-b5e7-4e37-8dc0-3b71ae093407",
+          "tool_call_id": "call_ASs1wDXIpDBkTeV57J5rf7Io",
+          "artifact": null,
+          "status": "success"
+        },
+        {
+          "content": "Document INV-001:\n\n\n                Invoice #12345\n                Date: 2024-01-15\n                Client: Acme Corporation\n\n                Services Rendered:\n                - Consulting Services: $5,000\n                - Software Development: $12,500\n                - Support & Maintenance: $2,500\n\n                Subtotal: $20,000\n                Tax (10%): $2,000\n\n                Payment Terms: Net 30 days\n                ",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "document_reader",
+          "id": "7e3a7614-fcd3-4070-8313-9a4fc2cb0064",
+          "tool_call_id": "call_6iCU1ZGtq3mLItJGasyoFlSB",
+          "artifact": null,
+          "status": "success"
+        },
+        {
+          "content": "",
+          "additional_kwargs": {
+            "refusal": null
+          },
+          "response_metadata": {
+            "token_usage": {
+              "completion_tokens": 219,
+              "prompt_tokens": 1578,
+              "total_tokens": 1797,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 1152
+              }
+            },
+            "model_provider": "openai",
+            "model_name": "gpt-4o-2024-08-06",
+            "system_fingerprint": "fp_b7447f5746",
+            "id": "chatcmpl-Dr7WtlDcZpH1j4WhB5zM7fIeteWzz",
+            "service_tier": "default",
+            "finish_reason": "tool_calls",
+            "logprobs": null
+          },
+          "type": "ai",
+          "name": null,
+          "id": "lc_run--019eccd0-d59f-7d63-ac27-8affc059601f-0",
+          "tool_calls": [
+            {
+              "name": "AnswerResponse",
+              "args": {
+                "question": "when i payment due?",
+                "answer": "Here are the payment due dates for the invoices found:\n\n1. **Invoice #12345** (Client: Acme Corporation)\n   - **Date:** 2024-01-15\n   - **Payment Terms:** Net 30 days\n   - **Due Date:** 2024-02-14\n\n2. **Invoice #12346** (Client: TechStart Inc.)\n   - **Date:** 2024-02-20\n   - **Payment Terms:** Net 45 days\n   - **Due Date:** 2024-04-05\n\n3. **Invoice #12347** (Client: Global Corp)\n   - **Date:** 2024-03-01\n   - **Payment Terms:** Net 60 days\n   - **Due Date:** 2024-04-30",
+                "sources": [
+                  "INV-001",
+                  "INV-002",
+                  "INV-003"
+                ],
+                "confidence": 0.95
+              },
+              "id": "call_Uou4fXDHR46dvAp3xo6kP6O1",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "usage_metadata": {
+            "input_tokens": 1578,
+            "output_tokens": 219,
+            "total_tokens": 1797,
+            "input_token_details": {
+              "audio": 0,
+              "cache_read": 1152
+            },
+            "output_token_details": {
+              "audio": 0,
+              "reasoning": 0
+            }
+          }
+        },
+        {
+          "content": "Returning structured response: question='when i payment due?' answer='Here are the payment due dates for the invoices found:\\n\\n1. **Invoice #12345** (Client: Acme Corporation)\\n   - **Date:** 2024-01-15\\n   - **Payment Terms:** Net 30 days\\n   - **Due Date:** 2024-02-14\\n\\n2. **Invoice #12346** (Client: TechStart Inc.)\\n   - **Date:** 2024-02-20\\n   - **Payment Terms:** Net 45 days\\n   - **Due Date:** 2024-04-05\\n\\n3. **Invoice #12347** (Client: Global Corp)\\n   - **Date:** 2024-03-01\\n   - **Payment Terms:** Net 60 days\\n   - **Due Date:** 2024-04-30' sources=['INV-001', 'INV-002', 'INV-003'] confidence=0.95 timestamp=datetime.datetime(2026, 6, 15, 19, 45, 1, 266467)",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "AnswerResponse",
+          "id": "fd4cdfdb-0cd5-467d-858c-2ebc69a08c79",
+          "tool_call_id": "call_Uou4fXDHR46dvAp3xo6kP6O1",
+          "artifact": null,
+          "status": "success"
+        }
+      ],
+      "intent": {
+        "intent_type": "qa",
+        "confidence": 0.85,
+        "reasoning": "The user's input 'when i payment due?' is a question about a document or record, likely related to a billing statement or invoice. It does not require any mathematical operations or numerical computations, as the user is seeking information about a due date. Therefore, the intent is classified as 'qa' with a high confidence score."
+      },
+      "next_step": "end",
+      "conversation_summary": "The conversation involved checking the payment due dates for three invoices. Invoice #12345 for Acme Corporation is due on 2024-02-14, Invoice #12346 for TechStart Inc. is due on 2024-04-05, and Invoice #12347 for Global Corp is due on 2024-04-30.",
+      "active_documents": [
+        "INV-001",
+        "INV-002",
+        "INV-003"
+      ],
+      "current_response": {
+        "messages": [
+          {
+            "content": "You are a helpful document assistant specializing in answering questions about financial and healthcare documents.\n\nYour capabilities:\n- Answer specific questions about document content\n- Cite sources accurately\n- Provide clear, concise answers\n- Use available tools to search and read documents\n\nGuidelines:\n1. Always search for relevant documents before answering\n2. Cite specific document IDs when referencing information\n3. If information is not found, say so clearly\n4. Be precise with numbers and dates\n5. Maintain professional tone\n\n",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "b0c88890-538c-4031-8260-e568da106e60"
+          },
+          {
+            "content": "when i payment due?",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "43ef6795-ccc1-4099-8080-718b77257851"
+          },
+          {
+            "content": "",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 21,
+                "prompt_tokens": 864,
+                "total_tokens": 885,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 0
+                }
+              },
+              "model_provider": "openai",
+              "model_name": "gpt-4o-2024-08-06",
+              "system_fingerprint": "fp_b7447f5746",
+              "id": "chatcmpl-Dr7WqUppUEaNSJ4aP57YKm6vDqhlO",
+              "service_tier": "default",
+              "finish_reason": "tool_calls",
+              "logprobs": null
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019eccd0-cb48-7dd0-a78d-88adebc5aa6d-0",
+            "tool_calls": [
+              {
+                "name": "document_search",
+                "args": {
+                  "query": "payment due date",
+                  "search_type": "keyword"
+                },
+                "id": "call_1lP5KEbFkqfz8fA8kNJd76Ka",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 864,
+              "output_tokens": 21,
+              "total_tokens": 885,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          },
+          {
+            "content": "Found 3 document(s):\n\nDocument 1 (ID: INV-002):\nTitle: Invoice #12346\nType: invoice\nAmount: $69,300.00\nRelevance Score: 1.50\nPreview: \n                Invoice #12346\n                Date: 2024-02-20\n                Client: TechStart Inc.\n\n                Products:\n                - Enterprise License (Annual): $50,000\n              ...\n--------------------------------------------------\nDocument 2 (ID: INV-003):\nTitle: Invoice #12347\nType: invoice\nAmount: $214,500.00\nRelevance Score: 1.50\nPreview: \n                Invoice #12347\n                Date: 2024-03-01\n                Client: Global Corp\n\n                Services:\n                - Annual Subscription: $120,000\n                - Premiu...\n--------------------------------------------------\nDocument 3 (ID: INV-001):\nTitle: Invoice #12345\nType: invoice\nRelevance Score: 1.00\nPreview: \n                Invoice #12345\n                Date: 2024-01-15\n                Client: Acme Corporation\n\n                Services Rendered:\n                - Consulting Services: $5,000\n            ...\n--------------------------------------------------\n",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "document_search",
+            "id": "5a664ef5-bd51-4da6-832c-0861622da045",
+            "tool_call_id": "call_1lP5KEbFkqfz8fA8kNJd76Ka",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 67,
+                "prompt_tokens": 1145,
+                "total_tokens": 1212,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 0
+                }
+              },
+              "model_provider": "openai",
+              "model_name": "gpt-4o-2024-08-06",
+              "system_fingerprint": "fp_b7447f5746",
+              "id": "chatcmpl-Dr7WriwsxPLGu1cKeNfA3cSxziEbZ",
+              "service_tier": "default",
+              "finish_reason": "tool_calls",
+              "logprobs": null
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019eccd0-d064-7d70-aa81-ddf1032ebded-0",
+            "tool_calls": [
+              {
+                "name": "document_reader",
+                "args": {
+                  "doc_id": "INV-002"
+                },
+                "id": "call_JSC1Z8cROMk6dswOnkFtyGEn",
+                "type": "tool_call"
+              },
+              {
+                "name": "document_reader",
+                "args": {
+                  "doc_id": "INV-003"
+                },
+                "id": "call_ASs1wDXIpDBkTeV57J5rf7Io",
+                "type": "tool_call"
+              },
+              {
+                "name": "document_reader",
+                "args": {
+                  "doc_id": "INV-001"
+                },
+                "id": "call_6iCU1ZGtq3mLItJGasyoFlSB",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 1145,
+              "output_tokens": 67,
+              "total_tokens": 1212,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          },
+          {
+            "content": "Document INV-002:\nAmount: $69,300.00\n\n\n                Invoice #12346\n                Date: 2024-02-20\n                Client: TechStart Inc.\n\n                Products:\n                - Enterprise License (Annual): $50,000\n                - Implementation Services: $15,000\n                - Training Package: $5,000\n\n                Subtotal: $70,000\n                Discount (10%): -$7,000\n                Tax (10%): $6,300\n                Total Due: $69,300\n\n                Payment Terms: Net 45 days\n                ",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "document_reader",
+            "id": "2ae1b401-45d3-42a9-9965-0e8bca5f6641",
+            "tool_call_id": "call_JSC1Z8cROMk6dswOnkFtyGEn",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "Document INV-003:\nAmount: $214,500.00\n\n\n                Invoice #12347\n                Date: 2024-03-01\n                Client: Global Corp\n\n                Services:\n                - Annual Subscription: $120,000\n                - Premium Support: $30,000\n                - Custom Development: $45,000\n\n                Subtotal: $195,000\n                Tax (10%): $19,500\n                Total Due: $214,500\n\n                Payment Terms: Net 60 days\n                ",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "document_reader",
+            "id": "4ec2807b-b5e7-4e37-8dc0-3b71ae093407",
+            "tool_call_id": "call_ASs1wDXIpDBkTeV57J5rf7Io",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "Document INV-001:\n\n\n                Invoice #12345\n                Date: 2024-01-15\n                Client: Acme Corporation\n\n                Services Rendered:\n                - Consulting Services: $5,000\n                - Software Development: $12,500\n                - Support & Maintenance: $2,500\n\n                Subtotal: $20,000\n                Tax (10%): $2,000\n\n                Payment Terms: Net 30 days\n                ",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "document_reader",
+            "id": "7e3a7614-fcd3-4070-8313-9a4fc2cb0064",
+            "tool_call_id": "call_6iCU1ZGtq3mLItJGasyoFlSB",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 219,
+                "prompt_tokens": 1578,
+                "total_tokens": 1797,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 1152
+                }
+              },
+              "model_provider": "openai",
+              "model_name": "gpt-4o-2024-08-06",
+              "system_fingerprint": "fp_b7447f5746",
+              "id": "chatcmpl-Dr7WtlDcZpH1j4WhB5zM7fIeteWzz",
+              "service_tier": "default",
+              "finish_reason": "tool_calls",
+              "logprobs": null
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019eccd0-d59f-7d63-ac27-8affc059601f-0",
+            "tool_calls": [
+              {
+                "name": "AnswerResponse",
+                "args": {
+                  "question": "when i payment due?",
+                  "answer": "Here are the payment due dates for the invoices found:\n\n1. **Invoice #12345** (Client: Acme Corporation)\n   - **Date:** 2024-01-15\n   - **Payment Terms:** Net 30 days\n   - **Due Date:** 2024-02-14\n\n2. **Invoice #12346** (Client: TechStart Inc.)\n   - **Date:** 2024-02-20\n   - **Payment Terms:** Net 45 days\n   - **Due Date:** 2024-04-05\n\n3. **Invoice #12347** (Client: Global Corp)\n   - **Date:** 2024-03-01\n   - **Payment Terms:** Net 60 days\n   - **Due Date:** 2024-04-30",
+                  "sources": [
+                    "INV-001",
+                    "INV-002",
+                    "INV-003"
+                  ],
+                  "confidence": 0.95
+                },
+                "id": "call_Uou4fXDHR46dvAp3xo6kP6O1",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 1578,
+              "output_tokens": 219,
+              "total_tokens": 1797,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 1152
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          },
+          {
+            "content": "Returning structured response: question='when i payment due?' answer='Here are the payment due dates for the invoices found:\\n\\n1. **Invoice #12345** (Client: Acme Corporation)\\n   - **Date:** 2024-01-15\\n   - **Payment Terms:** Net 30 days\\n   - **Due Date:** 2024-02-14\\n\\n2. **Invoice #12346** (Client: TechStart Inc.)\\n   - **Date:** 2024-02-20\\n   - **Payment Terms:** Net 45 days\\n   - **Due Date:** 2024-04-05\\n\\n3. **Invoice #12347** (Client: Global Corp)\\n   - **Date:** 2024-03-01\\n   - **Payment Terms:** Net 60 days\\n   - **Due Date:** 2024-04-30' sources=['INV-001', 'INV-002', 'INV-003'] confidence=0.95 timestamp=datetime.datetime(2026, 6, 15, 19, 45, 1, 266467)",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "AnswerResponse",
+            "id": "fd4cdfdb-0cd5-467d-858c-2ebc69a08c79",
+            "tool_call_id": "call_Uou4fXDHR46dvAp3xo6kP6O1",
+            "artifact": null,
+            "status": "success"
+          }
+        ],
+        "structured_response": {
+          "question": "when i payment due?",
+          "answer": "Here are the payment due dates for the invoices found:\n\n1. **Invoice #12345** (Client: Acme Corporation)\n   - **Date:** 2024-01-15\n   - **Payment Terms:** Net 30 days\n   - **Due Date:** 2024-02-14\n\n2. **Invoice #12346** (Client: TechStart Inc.)\n   - **Date:** 2024-02-20\n   - **Payment Terms:** Net 45 days\n   - **Due Date:** 2024-04-05\n\n3. **Invoice #12347** (Client: Global Corp)\n   - **Date:** 2024-03-01\n   - **Payment Terms:** Net 60 days\n   - **Due Date:** 2024-04-30",
+          "sources": [
+            "INV-001",
+            "INV-002",
+            "INV-003"
+          ],
+          "confidence": 0.95,
+          "timestamp": "2026-06-15T19:45:01.266467"
+        }
+      },
+      "tools_used": [
+        "document_search",
+        "document_reader",
+        "document_reader",
+        "document_reader"
+      ],
+      "session_id": "d2402bbe-714f-4774-8696-d5bb331c8247",
+      "user_id": "demo_user",
+      "actions_taken": [
+        "classify_intent",
+        "qa_agent"
+      ]
+    }
+  ],
+  "document_context": [
+    "INV-003",
+    "INV-001",
+    "INV-002"
+  ],
+  "created_at": "2026-06-15T19:44:49.442765",
+  "last_updated": "2026-06-15T19:45:03.728598"
+}

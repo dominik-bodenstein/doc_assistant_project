@@ -1,0 +1,66 @@
+[
+  {
+    "timestamp": "2026-06-15T19:41:24.480683",
+    "tool_name": "document_statistics",
+    "input": {},
+    "output": "{'stats': {'total_documents': 5, 'documents_with_amounts': 4, 'total_amount': 466250.0, 'average_amount': 116562.5, 'document_types': {'invoice': 3, 'contract': 1, 'claim': 1}, 'min_amount': 2450.0, 'max_amount': 214500.0}}"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:25.517346",
+    "tool_name": "document_search",
+    "input": {
+      "query": "invoices",
+      "search_type": "type",
+      "doc_type": "invoice",
+      "min_amount": null,
+      "max_amount": null,
+      "comparison": null,
+      "amount": null
+    },
+    "output": "{'results_count': 3}"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:26.804783",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "INV-001"
+    },
+    "output": "{'found': True, 'doc_type': 'invoice'}"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:26.806529",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "INV-002"
+    },
+    "output": "{'found': True, 'doc_type': 'invoice'}"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:26.807681",
+    "tool_name": "document_reader",
+    "input": {
+      "doc_id": "INV-003"
+    },
+    "output": "{'found': True, 'doc_type': 'invoice'}"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:27.799176",
+    "tool_name": "calculator",
+    "input": {
+      "a": 20000.0,
+      "b": 69300.0,
+      "operation": "add"
+    },
+    "output": "{'result': 89300.0}"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:28.871770",
+    "tool_name": "calculator",
+    "input": {
+      "a": 89300.0,
+      "b": 214500.0,
+      "operation": "add"
+    },
+    "output": "{'result': 303800.0}"
+  }
+]
