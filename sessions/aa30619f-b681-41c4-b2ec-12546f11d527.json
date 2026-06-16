@@ -1,0 +1,397 @@
+{
+  "session_id": "aa30619f-b681-41c4-b2ec-12546f11d527",
+  "user_id": "demo_user",
+  "conversation_history": [
+    {
+      "user_input": "pelase summarize inv 1",
+      "messages": [
+        {
+          "content": "You are an expert document summarizer specializing in financial and healthcare documents.\n\nYour approach:\n- Extract key information and main points\n- Organize summaries logically\n- Highlight important numbers, dates, and parties\n- Keep summaries concise but comprehensive\n\nGuidelines:\n1. First search for and read the relevant documents\n2. Structure summaries with clear sections\n3. Include document IDs in your summary\n4. Focus on actionable information\n",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "system",
+          "name": null,
+          "id": "d0e66bcd-9d97-4c1c-a8a0-9b22e99186e3"
+        },
+        {
+          "content": "pelase summarize inv 1",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "human",
+          "name": null,
+          "id": "bdae8ea7-616d-4bc4-8441-c3ded8b94a2a"
+        },
+        {
+          "content": "",
+          "additional_kwargs": {
+            "refusal": null
+          },
+          "response_metadata": {
+            "token_usage": {
+              "completion_tokens": 17,
+              "prompt_tokens": 835,
+              "total_tokens": 852,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            },
+            "model_provider": "openai",
+            "model_name": "gpt-4o-2024-08-06",
+            "system_fingerprint": "fp_8723a675e3",
+            "id": "chatcmpl-Dr7VvpIo93co8TCxzZlk62HsVvdJ1",
+            "service_tier": "default",
+            "finish_reason": "tool_calls",
+            "logprobs": null
+          },
+          "type": "ai",
+          "name": null,
+          "id": "lc_run--019ecccf-eb50-7751-84a5-c3e9addd889c-0",
+          "tool_calls": [
+            {
+              "name": "document_reader",
+              "args": {
+                "doc_id": "INV-001"
+              },
+              "id": "call_ViSbr7TvSHRtvJ1ODxFaoqHr",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "usage_metadata": {
+            "input_tokens": 835,
+            "output_tokens": 17,
+            "total_tokens": 852,
+            "input_token_details": {
+              "audio": 0,
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "audio": 0,
+              "reasoning": 0
+            }
+          }
+        },
+        {
+          "content": "Document INV-001:\n\n\n                Invoice #12345\n                Date: 2024-01-15\n                Client: Acme Corporation\n\n                Services Rendered:\n                - Consulting Services: $5,000\n                - Software Development: $12,500\n                - Support & Maintenance: $2,500\n\n                Subtotal: $20,000\n                Tax (10%): $2,000\n\n                Payment Terms: Net 30 days\n                ",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "document_reader",
+          "id": "4b2d6350-3047-4e2e-a0f3-c5527e360364",
+          "tool_call_id": "call_ViSbr7TvSHRtvJ1ODxFaoqHr",
+          "artifact": null,
+          "status": "success"
+        },
+        {
+          "content": "",
+          "additional_kwargs": {
+            "refusal": null
+          },
+          "response_metadata": {
+            "token_usage": {
+              "completion_tokens": 203,
+              "prompt_tokens": 955,
+              "total_tokens": 1158,
+              "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+              },
+              "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+              }
+            },
+            "model_provider": "openai",
+            "model_name": "gpt-4o-2024-08-06",
+            "system_fingerprint": "fp_8723a675e3",
+            "id": "chatcmpl-Dr7VwZg089cDH50cPQqVMpJm3aYLM",
+            "service_tier": "default",
+            "finish_reason": "tool_calls",
+            "logprobs": null
+          },
+          "type": "ai",
+          "name": null,
+          "id": "lc_run--019ecccf-ef87-70d0-a30b-bf0926b27284-0",
+          "tool_calls": [
+            {
+              "name": "SummarizationResponse",
+              "args": {
+                "original_length": 233,
+                "summary": "Invoice #12345 issued to Acme Corporation on January 15, 2024, includes charges for consulting services ($5,000), software development ($12,500), and support & maintenance ($2,500). The subtotal is $20,000 with a 10% tax of $2,000, totaling $22,000. Payment is due within 30 days.",
+                "key_points": [
+                  "Invoice #12345",
+                  "Date: 2024-01-15",
+                  "Client: Acme Corporation",
+                  "Consulting Services: $5,000",
+                  "Software Development: $12,500",
+                  "Support & Maintenance: $2,500",
+                  "Subtotal: $20,000",
+                  "Tax (10%): $2,000",
+                  "Total: $22,000",
+                  "Payment Terms: Net 30 days"
+                ],
+                "document_ids": [
+                  "INV-001"
+                ],
+                "timestamp": "2024-01-15T00:00:00Z"
+              },
+              "id": "call_RbqK7ZhnIsjrWkWR4A5ko1CX",
+              "type": "tool_call"
+            }
+          ],
+          "invalid_tool_calls": [],
+          "usage_metadata": {
+            "input_tokens": 955,
+            "output_tokens": 203,
+            "total_tokens": 1158,
+            "input_token_details": {
+              "audio": 0,
+              "cache_read": 0
+            },
+            "output_token_details": {
+              "audio": 0,
+              "reasoning": 0
+            }
+          }
+        },
+        {
+          "content": "Returning structured response: original_length=233 summary='Invoice #12345 issued to Acme Corporation on January 15, 2024, includes charges for consulting services ($5,000), software development ($12,500), and support & maintenance ($2,500). The subtotal is $20,000 with a 10% tax of $2,000, totaling $22,000. Payment is due within 30 days.' key_points=['Invoice #12345', 'Date: 2024-01-15', 'Client: Acme Corporation', 'Consulting Services: $5,000', 'Software Development: $12,500', 'Support & Maintenance: $2,500', 'Subtotal: $20,000', 'Tax (10%): $2,000', 'Total: $22,000', 'Payment Terms: Net 30 days'] document_ids=['INV-001'] timestamp=datetime.datetime(2024, 1, 15, 0, 0, tzinfo=TzInfo(0))",
+          "additional_kwargs": {},
+          "response_metadata": {},
+          "type": "tool",
+          "name": "SummarizationResponse",
+          "id": "4c982afd-693e-462f-88d1-9d8ec9238a27",
+          "tool_call_id": "call_RbqK7ZhnIsjrWkWR4A5ko1CX",
+          "artifact": null,
+          "status": "success"
+        }
+      ],
+      "intent": {
+        "intent_type": "summarization",
+        "confidence": 0.85,
+        "reasoning": "The user input 'pelase summarize inv 1' suggests a request to summarize a document, likely an invoice (abbreviated as 'inv'). The misspelling of 'please' does not affect the intent, which is focused on summarizing content rather than performing calculations or asking a question. The absence of recent conversation history does not provide additional context, but the request is clear enough to classify as summarization with a high confidence level."
+      },
+      "next_step": "end",
+      "conversation_summary": "Invoice #12345 issued to Acme Corporation on January 15, 2024, includes charges for consulting services ($5,000), software development ($12,500), and support & maintenance ($2,500). The subtotal is $20,000 with a 10% tax of $2,000, totaling $22,000. Payment is due within 30 days.",
+      "active_documents": [
+        "INV-001"
+      ],
+      "current_response": {
+        "messages": [
+          {
+            "content": "You are an expert document summarizer specializing in financial and healthcare documents.\n\nYour approach:\n- Extract key information and main points\n- Organize summaries logically\n- Highlight important numbers, dates, and parties\n- Keep summaries concise but comprehensive\n\nGuidelines:\n1. First search for and read the relevant documents\n2. Structure summaries with clear sections\n3. Include document IDs in your summary\n4. Focus on actionable information\n",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "system",
+            "name": null,
+            "id": "d0e66bcd-9d97-4c1c-a8a0-9b22e99186e3"
+          },
+          {
+            "content": "pelase summarize inv 1",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "human",
+            "name": null,
+            "id": "bdae8ea7-616d-4bc4-8441-c3ded8b94a2a"
+          },
+          {
+            "content": "",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 17,
+                "prompt_tokens": 835,
+                "total_tokens": 852,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 0
+                }
+              },
+              "model_provider": "openai",
+              "model_name": "gpt-4o-2024-08-06",
+              "system_fingerprint": "fp_8723a675e3",
+              "id": "chatcmpl-Dr7VvpIo93co8TCxzZlk62HsVvdJ1",
+              "service_tier": "default",
+              "finish_reason": "tool_calls",
+              "logprobs": null
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019ecccf-eb50-7751-84a5-c3e9addd889c-0",
+            "tool_calls": [
+              {
+                "name": "document_reader",
+                "args": {
+                  "doc_id": "INV-001"
+                },
+                "id": "call_ViSbr7TvSHRtvJ1ODxFaoqHr",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 835,
+              "output_tokens": 17,
+              "total_tokens": 852,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          },
+          {
+            "content": "Document INV-001:\n\n\n                Invoice #12345\n                Date: 2024-01-15\n                Client: Acme Corporation\n\n                Services Rendered:\n                - Consulting Services: $5,000\n                - Software Development: $12,500\n                - Support & Maintenance: $2,500\n\n                Subtotal: $20,000\n                Tax (10%): $2,000\n\n                Payment Terms: Net 30 days\n                ",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "document_reader",
+            "id": "4b2d6350-3047-4e2e-a0f3-c5527e360364",
+            "tool_call_id": "call_ViSbr7TvSHRtvJ1ODxFaoqHr",
+            "artifact": null,
+            "status": "success"
+          },
+          {
+            "content": "",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 203,
+                "prompt_tokens": 955,
+                "total_tokens": 1158,
+                "completion_tokens_details": {
+                  "accepted_prediction_tokens": 0,
+                  "audio_tokens": 0,
+                  "reasoning_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                },
+                "prompt_tokens_details": {
+                  "audio_tokens": 0,
+                  "cached_tokens": 0
+                }
+              },
+              "model_provider": "openai",
+              "model_name": "gpt-4o-2024-08-06",
+              "system_fingerprint": "fp_8723a675e3",
+              "id": "chatcmpl-Dr7VwZg089cDH50cPQqVMpJm3aYLM",
+              "service_tier": "default",
+              "finish_reason": "tool_calls",
+              "logprobs": null
+            },
+            "type": "ai",
+            "name": null,
+            "id": "lc_run--019ecccf-ef87-70d0-a30b-bf0926b27284-0",
+            "tool_calls": [
+              {
+                "name": "SummarizationResponse",
+                "args": {
+                  "original_length": 233,
+                  "summary": "Invoice #12345 issued to Acme Corporation on January 15, 2024, includes charges for consulting services ($5,000), software development ($12,500), and support & maintenance ($2,500). The subtotal is $20,000 with a 10% tax of $2,000, totaling $22,000. Payment is due within 30 days.",
+                  "key_points": [
+                    "Invoice #12345",
+                    "Date: 2024-01-15",
+                    "Client: Acme Corporation",
+                    "Consulting Services: $5,000",
+                    "Software Development: $12,500",
+                    "Support & Maintenance: $2,500",
+                    "Subtotal: $20,000",
+                    "Tax (10%): $2,000",
+                    "Total: $22,000",
+                    "Payment Terms: Net 30 days"
+                  ],
+                  "document_ids": [
+                    "INV-001"
+                  ],
+                  "timestamp": "2024-01-15T00:00:00Z"
+                },
+                "id": "call_RbqK7ZhnIsjrWkWR4A5ko1CX",
+                "type": "tool_call"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "input_tokens": 955,
+              "output_tokens": 203,
+              "total_tokens": 1158,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          },
+          {
+            "content": "Returning structured response: original_length=233 summary='Invoice #12345 issued to Acme Corporation on January 15, 2024, includes charges for consulting services ($5,000), software development ($12,500), and support & maintenance ($2,500). The subtotal is $20,000 with a 10% tax of $2,000, totaling $22,000. Payment is due within 30 days.' key_points=['Invoice #12345', 'Date: 2024-01-15', 'Client: Acme Corporation', 'Consulting Services: $5,000', 'Software Development: $12,500', 'Support & Maintenance: $2,500', 'Subtotal: $20,000', 'Tax (10%): $2,000', 'Total: $22,000', 'Payment Terms: Net 30 days'] document_ids=['INV-001'] timestamp=datetime.datetime(2024, 1, 15, 0, 0, tzinfo=TzInfo(0))",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "type": "tool",
+            "name": "SummarizationResponse",
+            "id": "4c982afd-693e-462f-88d1-9d8ec9238a27",
+            "tool_call_id": "call_RbqK7ZhnIsjrWkWR4A5ko1CX",
+            "artifact": null,
+            "status": "success"
+          }
+        ],
+        "structured_response": {
+          "original_length": 233,
+          "summary": "Invoice #12345 issued to Acme Corporation on January 15, 2024, includes charges for consulting services ($5,000), software development ($12,500), and support & maintenance ($2,500). The subtotal is $20,000 with a 10% tax of $2,000, totaling $22,000. Payment is due within 30 days.",
+          "key_points": [
+            "Invoice #12345",
+            "Date: 2024-01-15",
+            "Client: Acme Corporation",
+            "Consulting Services: $5,000",
+            "Software Development: $12,500",
+            "Support & Maintenance: $2,500",
+            "Subtotal: $20,000",
+            "Tax (10%): $2,000",
+            "Total: $22,000",
+            "Payment Terms: Net 30 days"
+          ],
+          "document_ids": [
+            "INV-001"
+          ],
+          "timestamp": "2024-01-15T00:00:00+00:00"
+        }
+      },
+      "tools_used": [
+        "document_reader"
+      ],
+      "session_id": "aa30619f-b681-41c4-b2ec-12546f11d527",
+      "user_id": "demo_user",
+      "actions_taken": [
+        "classify_intent",
+        "summarization_agent"
+      ]
+    }
+  ],
+  "document_context": [
+    "INV-001"
+  ],
+  "created_at": "2026-06-15T19:43:47.478605",
+  "last_updated": "2026-06-15T19:44:05.834734"
+}
