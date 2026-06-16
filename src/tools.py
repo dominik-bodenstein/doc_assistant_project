@@ -3,6 +3,7 @@ Tool definitions for the agent using @tool decorator
 Think of these as the agent's Swiss Army knife 🔧 - each tool has a specific purpose!
 """
 
+import ast
 from typing import Dict, Any, List, Optional, Literal
 from langchain.tools import tool
 import json
@@ -60,65 +61,95 @@ class ToolLogger:
 
 def create_calculator_tool(logger: ToolLogger):
     """
-    Create a calculator tool that performs basic arithmetic operations with safety checks and logging.
+    Create a calculator tool that safely evaluates math expressions. Based on a White-listed AST approach to prevent code injection. Logs all uses with the provided logger.
     """
 
+    class _SafeVisitor(ast.NodeVisitor):
+        def generic_visit(self, node):
+            if not isinstance(node, _ALLOWED_NODES):
+                raise ValueError("Unsafe or unsupported expression")
+            super().generic_visit(node)
+
+    _ALLOWED_NODES = (
+        ast.Expression,
+        ast.Constant,
+        ast.BinOp,
+        ast.UnaryOp,
+        ast.Add,
+        ast.Sub,
+        ast.Mult,
+        ast.Div,
+        ast.Pow,
+        ast.USub,
+        ast.UAdd,
+    )
+
+    def _eval_node(node):
+        if isinstance(node, ast.Expression):
+            return _eval_node(node.body)
+        if isinstance(node, ast.Constant):
+            if not isinstance(node.value, (int, float)):
+                raise ValueError("Unsafe or unsupported expression")
+            return float(node.value)
+        if isinstance(node, ast.BinOp):
+            left = _eval_node(node.left)
+            right = _eval_node(node.right)
+            op = node.op
+            if isinstance(op, ast.Add):
+                return left + right
+            if isinstance(op, ast.Sub):
+                return left - right
+            if isinstance(op, ast.Mult):
+                return left * right
+            if isinstance(op, ast.Div):
+                if right == 0:
+                    raise ZeroDivisionError("division by zero")
+                return left / right
+            if isinstance(op, ast.Pow):
+                return left**right
+            raise ValueError("Unsafe or unsupported expression")
+        if isinstance(node, ast.UnaryOp):
+            operand = _eval_node(node.operand)
+            if isinstance(node.op, ast.USub):
+                return -operand
+            if isinstance(node.op, ast.UAdd):
+                return +operand
+            raise ValueError("Unsafe or unsupported expression")
+        raise ValueError("Unsafe or unsupported expression")
+
+    def _safe_eval(expr: str) -> float:
+        tree = ast.parse(expr, mode="eval")
+        _SafeVisitor().visit(tree)
+        return _eval_node(tree)
+
     @tool
-    def calculator(
-        a: float, b: float, operation: Literal["add", "subtract", "multiply", "divide"]
-    ) -> float:
-        """Perform basic arithmetic operations with safety checks.
+    def calculator(expression: str) -> str:
+        """Evaluate a mathematical expression string safely.
 
         Args:
-            a: First operand
-            b: Second operand
-            operation: Operation to perform - 'add', 'subtract', 'multiply', 'divide'
+            expression: A math expression string, e.g. "2 + 3", "(10 - 4) * 2"
 
         Examples:
-            - calculator(5, 3, 'add') → 8
-            - calculator(10, 4, 'subtract') → 6
-            - calculator(6, 7, 'multiply') → 42
-            - calculator(20, 5, 'divide') → 4
+            - "2 + 3" → "5.0"
+            - "(10 - 4) * 2" → "12.0"
+            - "20 / 5" → "4.0"
 
         Returns:
-            The result of the calculation or an error message if invalid input
+            The result as a string, or an error string starting with 'Error'
         """
         try:
-            mapping = {
-                "add": lambda x, y: x + y,
-                "subtract": lambda x, y: x - y,
-                "multiply": lambda x, y: x * y,
-                "divide": lambda x, y: x / y
-                if y != 0
-                else (_ for _ in ()).throw(ValueError("Cannot divide by zero")),
-            }
-            if operation not in mapping:
-                raise ValueError(f"Unsupported operation: {operation}")
-
-            result = mapping[operation](a, b)
-
+            result = _safe_eval(expression)
+            output = str(result)
             logger.log_tool_use(
-                "calculator",
-                {
-                    "a": a,
-                    "b": b,
-                    "operation": operation,
-                },
-                {"result": result},
+                "calculator", {"expression": expression}, {"output": output}
             )
-
-            return result
+            return output
         except Exception as e:
+            error_msg = f"Error: {e}"
             logger.log_tool_use(
-                "calculator",
-                {
-                    "a": a,
-                    "b": b,
-                    "operation": operation,
-                },
-                {"results": e.__str__()},
+                "calculator", {"expression": expression}, {"output": error_msg}
             )
-            return float("nan")  # Return NaN to indicate an error in calculation
+            return error_msg
 
     return calculator
 
