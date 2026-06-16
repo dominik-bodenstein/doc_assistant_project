@@ -55,6 +55,7 @@ class DocumentAssistant:
         if session_id and self._session_exists(session_id):
             # Load existing session
             self.current_session = self._load_session(session_id)
+            print(f"Resumed session {session_id}")
         else:
             # Create new session
             session_id = session_id or str(uuid.uuid4())
@@ -64,6 +65,7 @@ class DocumentAssistant:
                 conversation_history=[],
                 document_context=[],
             )
+            print(f"Started new session {session_id}")
         return session_id
 
     def _session_exists(self, session_id: str) -> bool:
